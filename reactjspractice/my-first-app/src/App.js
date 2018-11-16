@@ -7,12 +7,18 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-balham.css';
 import { Grid } from 'ag-grid-community';
 import $ from 'jquery';
+import ChildApp from './ChildApp';
 class App extends Component {
   constructor(props){
     super();
     this.getRequiredCountries=this.getRequiredCountries.bind(this);
     this.getRequiredCities=this.getRequiredCities.bind(this);
     this.getAllRows=this.getAllRows.bind(this);
+    this.handleChangeValue = e => this.setState({namevalue: e.target.value});
+    this.handleChangeContinentValue= e => this.setState({continentValue: $('#con').val()});
+    this.handleChangeCountryValue=e=>this.setState({countryValue:$('cou').val()});
+    this.handleChangeCityValue=e=>this.setState({cityValue:$('#cit').val()});
+this.handleChangeRememberValue=e=>this.setState({rememberValue:$('#rem').is(':checked')?true:false});
     this.state={
       //alertit: "Name="+ document.getElementById("name").value
       continents:[],
@@ -29,7 +35,12 @@ class App extends Component {
         ],
         rowData: [],
         rowSelection: "single",
-        gridId:0
+        gridId:0,
+        namevalue:'',
+        continentValue:'',
+        countryValue:'',
+        cityValue:'',
+        rememberValue:false
     }
    // this.getAllRows=this.getAllRows.bind(this);
   }
@@ -132,7 +143,6 @@ class App extends Component {
       if(response.data>0){
         alert("Data Updated.");
         this.getAllRows();
-        $('#hddnid').val(0);
         
         $('#name').val('');
   $('#con').val('');
@@ -155,7 +165,6 @@ class App extends Component {
       if(response.data>0){
         alert("Data Deleted.");
         this.getAllRows();
-        $('#hddnid').val(0);
         $('#name').val('');
   $('#con').val('');
   $('#cou').val('');
@@ -179,7 +188,6 @@ class App extends Component {
   onSelectionChangedFunc(){
     var a=this.gridApi.getSelectedRows();
     //alert(JSON.stringify(a));
-    var a=this.gridApi.getSelectedRows();
       if(a.length>0){
     this.setState({gridId:a[0].Id},function(){
       $('#name').val(a[0].name);
@@ -223,11 +231,24 @@ const cities=this.state.cities.map(city=>{
     return (
       <div className="container">
  <h1 style={{color:'white',backgroundColor:'green',padding:'8px 0'}}>Add Details</h1>
- <div className="form-group">
+ {/*<div className="form-group">
     <label>Name:</label>
     <input type="text" className="form-control" id="name" />
-  </div>
-  <div className="row">
+  </div>*/}
+  <ChildApp 
+  namevalue={this.state.namevalue}
+  continentValue={this.state.continentValue} 
+  onChangeTextValue={this.handleChangeValue} 
+  continents={continents} 
+  countries={countries} 
+  cities={cities}
+  getRequiredCountries={this.getRequiredCountries}
+  getRequiredCities={this.getRequiredCities}
+  handleChangeContinentValue={this.handleChangeContinentValue}
+  handleChangeCountryValue={this.handleChangeCountryValue}
+  handleChangeCityValue={this.handleChangeCityValue}
+  handleChangeRememberValue={this.handleChangeRememberValue} ></ChildApp>
+  {/*<div className="row">
   <div className="form-group col-sm-6">
     <label for="con">Continent:</label>
   <select id="con" className="form-control" onChange={this.getRequiredCountries.bind(this)}>
@@ -254,15 +275,14 @@ const cities=this.state.cities.map(city=>{
   <div className="checkbox form-group col-sm-6" style={{paddingTop:'38px'}}>
     <label><input type="checkbox" id="rem" /> Remember me</label>
   </div>
-  </div>
+  </div>*/}
   {getButton}
   
-<input type="hidden" id="hddnid" />
   <div 
                   className="ag-theme-balham"
                   style={{ 
 	                height: '500px', 
-	                width: '1500px' }} 
+	                width: '1200px' }} 
 		            >
                     <AgGridReact
                         columnDefs={this.state.columnDefs}
