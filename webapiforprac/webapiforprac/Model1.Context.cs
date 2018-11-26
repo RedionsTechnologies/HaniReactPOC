@@ -15,6 +15,7 @@ namespace webapiforprac
     
     public partial class TestMVCEntities : DbContext
     {
+        // Name of the Entity from the database 'TestMVC' generated
         public TestMVCEntities()
             : base("name=TestMVCEntities")
         {

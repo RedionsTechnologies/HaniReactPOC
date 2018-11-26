@@ -8,7 +8,7 @@ using webapiforprac.Models;
 namespace UnitTest
 {
     [TestClass]
-    public class UnitTest1
+    public class BusinessLogicUnitTest
     {
         [TestMethod]
         public void ContinentListTest()

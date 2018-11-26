@@ -6,7 +6,6 @@ import $ from 'jquery';
 
 class ChildApp extends Component{
     render(){
-     // alert(JSON.stringify(this.props.continents));
       
         return (
           <div>
