@@ -49,6 +49,7 @@ this.handleChangeRememberValue=e=>this.setState({rememberValue:$('#rem').is(':ch
   componentDidMount(){
     axios.post('http://localhost:38808//api/continents')
     .then(response=>{
+      alert(JSON.stringify(response.data));
       this.setState({continents:response.data});
     })
 

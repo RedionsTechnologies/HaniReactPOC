@@ -12,57 +12,56 @@ namespace webapiforprac.Controllers
     [RoutePrefix("api")]
     public class DetailController : ApiController
     {
-        private TestMVCEntities db = new TestMVCEntities();
         [Route("continents")]
         [HttpPost]
-        public List<tblContinent> ShowContinent()
+        public IHttpActionResult ShowContinent()
         {
-            return new BusinessLogic().ShowContinent();
+            return Ok(new BusinessLogic().ShowContinent());
         }
 
         [Route("countries")]
         [HttpPost]
-        public List<tblCountry> ShowCountry([FromBody]ForContinent forContinent)
+        public IHttpActionResult ShowCountry([FromBody]ForContinent forContinent)
         {
-            return new BusinessLogic().ShowCountry(forContinent);
+            return Ok(new BusinessLogic().ShowCountry(forContinent));
         }
 
         [Route("cities")]
         [HttpPost]
-        public List<tblCity> ShowCity([FromBody]ForCountry forCountry)
+        public IHttpActionResult ShowCity([FromBody]ForCountry forCountry)
         {
-            return new BusinessLogic().ShowCity(forCountry);
+            return Ok(new BusinessLogic().ShowCity(forCountry));
         }
 
         [Route("details")]
         [HttpPost]
-        public int Detail([FromBody]SaveDetailModels model)
+        public IHttpActionResult Detail([FromBody]SaveDetailModels model)
         {
-            return new BusinessLogic().Detail(model);
+            return Ok(new BusinessLogic().Detail(model));
         }
 
 
         [Route("updatedetail")]
         [HttpPost]
-        public int UpdateDetail([FromBody]SaveDetailModels model)
+        public IHttpActionResult UpdateDetail([FromBody]SaveDetailModels model)
         {
-            return new BusinessLogic().UpdateDetail(model);
+            return Ok(new BusinessLogic().UpdateDetail(model));
         }
 
 
         [Route("deletedetail")]
         [HttpPost]
-        public int DeleteDetail([FromBody]SaveDetailModels model)
+        public IHttpActionResult DeleteDetail([FromBody]SaveDetailModels model)
         {
-            return new BusinessLogic().DeleteDetail(model);
+            return Ok(new BusinessLogic().DeleteDetail(model));
         }
 
 
         [Route("showgrid")]
         [HttpPost]
-        public List<GridModels> ShowAllDetails()
+        public IHttpActionResult ShowAllDetails()
         {
-            return new BusinessLogic().ShowAllDetails();
+            return Ok(new BusinessLogic().ShowAllDetails());
         }
     }
 }
