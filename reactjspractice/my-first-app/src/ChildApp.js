@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import $ from 'jquery';
 
 class ChildApp extends Component{
     render(){
-     // alert(JSON.stringify(this.props.continents));
       
         return (
           <div>
@@ -44,5 +45,18 @@ class ChildApp extends Component{
         )
     }
 }
+
+ChildApp.propTypes={
+  handleChangeValue:PropTypes.func,
+  getRequiredCountries:PropTypes.func,
+  handleChangeContinentValue:PropTypes.func,
+  getRequiredCities:PropTypes.func,
+  handleChangeCountryValue:PropTypes.func,
+  handleChangeCityValue:PropTypes.func,
+  continents:PropTypes.object,
+  countries:PropTypes.object,
+  cities:PropTypes.object
+}
+
 
 export default ChildApp;
