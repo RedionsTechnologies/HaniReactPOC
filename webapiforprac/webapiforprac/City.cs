@@ -12,12 +12,10 @@ namespace webapiforprac
     using System;
     using System.Collections.Generic;
     
-    public partial class Employee
+    public partial class City
     {
-        public long Emp_Id { get; set; }
-        public string Emp_Name { get; set; }
-        public string Emp_Designation { get; set; }
-        public Nullable<System.DateTime> Emp_Dob { get; set; }
-        public string Emp_Address { get; set; }
+        public int Id { get; set; }
+        public string City_Name { get; set; }
+        public Nullable<int> Country_Id { get; set; }
     }
 }

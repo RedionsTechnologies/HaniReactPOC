@@ -5,7 +5,7 @@ using System.Web;
 
 namespace webapiforprac.Models
 {
-    public class ForContinent
+    public class ContinentModelForId
     {
         public int? continentId { get; set; }
     }

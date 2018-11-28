@@ -14,18 +14,19 @@ namespace UnitTest
         public void ContinentListTest()
         {
             BusinessLogic businessLogic = new BusinessLogic();
-            var continentList = businessLogic.ShowContinent();
+            var continentList = businessLogic.ShowContinentGetAll();
             Assert.IsNotNull(continentList);
         }
         [TestMethod]
         public void CountryListTest()
         {
             BusinessLogic businessLogic = new BusinessLogic();
-            ForContinent continentModel = new ForContinent {
+            ContinentModelForId continentModel = new ContinentModelForId
+            {
                 continentId=1,
 
             };
-            var countrytList = businessLogic.ShowCountry(continentModel);
+            var countrytList = businessLogic.ShowCountryByContinentId(continentModel);
             Assert.IsNotNull(countrytList);
         }
         [TestMethod]
@@ -37,7 +38,7 @@ namespace UnitTest
                 countryId = 1,
 
             };
-            var citytList = businessLogic.ShowCity(countryModel);
+            var citytList = businessLogic.ShowCityByCountryId(countryModel);
             Assert.IsNotNull(countryModel);
         }
 
@@ -54,7 +55,7 @@ namespace UnitTest
             remember=true
 
             };
-            var addDetail = businessLogic.Detail(detailModel);
+            var addDetail = businessLogic.AddDetail(detailModel);
             Assert.AreNotEqual(0, addDetail);
         }
 

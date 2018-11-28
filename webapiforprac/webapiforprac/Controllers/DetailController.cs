@@ -12,32 +12,33 @@ namespace webapiforprac.Controllers
     [RoutePrefix("api")]
     public class DetailController : ApiController
     {
+        private BusinessLogic _businessLogic = new BusinessLogic();
         [Route("continents")]
         [HttpPost]
-        public IHttpActionResult ShowContinent()
+        public IHttpActionResult ShowContinentGetAll()
         {
-            return Ok(new BusinessLogic().ShowContinent());
+            return Ok(_businessLogic.ShowContinentGetAll());
         }
 
         [Route("countries")]
         [HttpPost]
-        public IHttpActionResult ShowCountry([FromBody]ForContinent forContinent)
+        public IHttpActionResult ShowCountryByContinentId([FromBody]ContinentModelForId forContinent)
         {
-            return Ok(new BusinessLogic().ShowCountry(forContinent));
+            return Ok(_businessLogic.ShowCountryByContinentId(forContinent));
         }
 
         [Route("cities")]
         [HttpPost]
-        public IHttpActionResult ShowCity([FromBody]ForCountry forCountry)
+        public IHttpActionResult ShowCityByCountryId([FromBody]ForCountry forCountry)
         {
-            return Ok(new BusinessLogic().ShowCity(forCountry));
+            return Ok(_businessLogic.ShowCityByCountryId(forCountry));
         }
 
         [Route("details")]
         [HttpPost]
-        public IHttpActionResult Detail([FromBody]SaveDetailModels model)
+        public IHttpActionResult AddDetail([FromBody]SaveDetailModels model)
         {
-            return Ok(new BusinessLogic().Detail(model));
+            return Ok(_businessLogic.AddDetail(model));
         }
 
 
@@ -45,7 +46,7 @@ namespace webapiforprac.Controllers
         [HttpPost]
         public IHttpActionResult UpdateDetail([FromBody]SaveDetailModels model)
         {
-            return Ok(new BusinessLogic().UpdateDetail(model));
+            return Ok(_businessLogic.UpdateDetail(model));
         }
 
 
@@ -53,7 +54,7 @@ namespace webapiforprac.Controllers
         [HttpPost]
         public IHttpActionResult DeleteDetail([FromBody]SaveDetailModels model)
         {
-            return Ok(new BusinessLogic().DeleteDetail(model));
+            return Ok(_businessLogic.DeleteDetail(model));
         }
 
 
@@ -61,7 +62,7 @@ namespace webapiforprac.Controllers
         [HttpPost]
         public IHttpActionResult ShowAllDetails()
         {
-            return Ok(new BusinessLogic().ShowAllDetails());
+            return Ok(_businessLogic.ShowAllDetails());
         }
     }
 }

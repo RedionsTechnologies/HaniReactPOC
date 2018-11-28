@@ -8,27 +8,27 @@ namespace webapiforprac
 {
     public class BusinessLogic
     {
-        private TestMVCEntities db = new TestMVCEntities();
+        private TestMVCEntities _db = new TestMVCEntities();
         
-        public List<tblContinent> ShowContinent()
+        public List<Continent> ShowContinentGetAll()
         {
-            List<tblContinent> continent = db.tblContinents.ToList();
+            List<Continent> continent = _db.Continents.ToList();
             return continent;
         }
 
-        public List<tblCountry> ShowCountry(ForContinent forContinent)
+        public List<Country> ShowCountryByContinentId(ContinentModelForId forContinent)
         {
-            List<tblCountry> country = db.tblCountries.Where(x => x.Continent_Id == forContinent.continentId).ToList();
+            List<Country> country = _db.Countries.Where(x => x.Continent_Id == forContinent.continentId).ToList();
             return country;
         }
 
-        public List<tblCity> ShowCity(ForCountry forCountry)
+        public List<City> ShowCityByCountryId(ForCountry forCountry)
         {
-            List<tblCity> city = db.tblCities.Where(x => x.Country_Id == forCountry.countryId).ToList();
+            List<City> city = _db.Cities.Where(x => x.Country_Id == forCountry.countryId).ToList();
             return city;
         }
 
-        public int Detail(SaveDetailModels model)
+        public int AddDetail(SaveDetailModels model)
         {
             SaveDetail saveDetail = new SaveDetail();
             saveDetail.Name = model.name;
@@ -36,15 +36,15 @@ namespace webapiforprac
             saveDetail.Country = model.countryId;
             saveDetail.City = model.cityId;
             saveDetail.Remember = model.remember ?? false;
-            db.SaveDetails.Add(saveDetail);
-            int i = db.SaveChanges();
-            return i;
+            _db.SaveDetails.Add(saveDetail);
+            int countOfDetailSaved = _db.SaveChanges();
+            return countOfDetailSaved;
         }
 
         public int UpdateDetail(SaveDetailModels model)
         {
-            int i = 0;
-            SaveDetail saveDetail = db.SaveDetails.FirstOrDefault(x => x.Id == model.id);
+            int countOfDetailUpdated = 0;
+            SaveDetail saveDetail = _db.SaveDetails.FirstOrDefault(x => x.Id == model.id);
             if (saveDetail != null)
             {
                 saveDetail.Name = model.name;
@@ -52,38 +52,42 @@ namespace webapiforprac
                 saveDetail.Country = model.countryId;
                 saveDetail.City = model.cityId;
                 saveDetail.Remember = model.remember;
-                i = db.SaveChanges();
+                countOfDetailUpdated = _db.SaveChanges();
 
             }
-            return i;
+            return countOfDetailUpdated;
         }
 
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public int DeleteDetail(SaveDetailModels model)
         {
-            int i = 0;
-            SaveDetail saveDetail = db.SaveDetails.FirstOrDefault(x => x.Id == model.id);
+            int countOfDetailDeleted = 0;
+            SaveDetail saveDetail = _db.SaveDetails.FirstOrDefault(x => x.Id == model.id);
             if (saveDetail != null)
             {
-                db.SaveDetails.Remove(saveDetail);
-                i = db.SaveChanges();
+                _db.SaveDetails.Remove(saveDetail);
+                countOfDetailDeleted = _db.SaveChanges();
             }
-            return 1;
+            return countOfDetailDeleted;
         }
 
 
         public List<GridModels> ShowAllDetails()
         {
-            List<GridModels> gridModels = db.SaveDetails.AsEnumerable().Select((x, i) => new GridModels
+            List<GridModels> gridModels = _db.SaveDetails.AsEnumerable().Select((x, i) => new GridModels
             {
                 sId = i + 1,
                 Id = x.Id,
                 name = x.Name,
-                continentName = db.tblContinents.FirstOrDefault(y => x.Continent == y.Id).Continent_Name,
+                continentName = _db.Continents.FirstOrDefault(y => x.Continent == y.Id).Continent_Name,
                 cntId = x.Continent,
-                countryName = db.tblCountries.FirstOrDefault(y => x.Country == y.Id).Country_Name,
+                countryName = _db.Countries.FirstOrDefault(y => x.Country == y.Id).Country_Name,
                 cutId = x.Country,
-                cityName = db.tblCities.FirstOrDefault(y => x.City == y.Id).City_Name,
+                cityName = _db.Cities.FirstOrDefault(y => x.City == y.Id).City_Name,
                 ctyId = x.City,
                 rememberMe = x.Remember
             }).ToList();

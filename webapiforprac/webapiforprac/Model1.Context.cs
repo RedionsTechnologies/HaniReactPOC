@@ -15,7 +15,6 @@ namespace webapiforprac
     
     public partial class TestMVCEntities : DbContext
     {
-        // Name of the Entity from the database 'TestMVC' generated
         public TestMVCEntities()
             : base("name=TestMVCEntities")
         {
@@ -26,9 +25,9 @@ namespace webapiforprac
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblCity> tblCities { get; set; }
-        public virtual DbSet<tblContinent> tblContinents { get; set; }
-        public virtual DbSet<tblCountry> tblCountries { get; set; }
         public virtual DbSet<SaveDetail> SaveDetails { get; set; }
+        public virtual DbSet<City> Cities { get; set; }
+        public virtual DbSet<Continent> Continents { get; set; }
+        public virtual DbSet<Country> Countries { get; set; }
     }
 }

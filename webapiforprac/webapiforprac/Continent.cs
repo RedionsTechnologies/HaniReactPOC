@@ -12,7 +12,7 @@ namespace webapiforprac
     using System;
     using System.Collections.Generic;
     
-    public partial class tblContinent
+    public partial class Continent
     {
         public int Id { get; set; }
         public string Continent_Name { get; set; }
